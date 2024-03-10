@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Weather app</title>
+  <link rel="stylesheet" href="index.css" />
+  <script src="app.js"></script>
+
+
+
+
+
+  <link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+  integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+  crossorigin="anonymous"
+  referrerpolicy="no-referrer"
+/>
+<link rel="stylesheet" href="index.css" />
+</head>
+
+<body>
+  <!-- <div class="header">
+    <h1>Weather</h1>
+  <nav class="navbar">
+    <a  style="text-decoration:none;" href = "klndr/klndr.html">Calendar</a>
+    
+      </nav>
+    </div> -->
+      
+<h1>Widgets</h1>
+
+
+
+
+
+
+<div class="page">
+  <div class="kontejner">
+  <div class="karta">
+    <div class="hledat">
+      <input type="text" placeholder="enter city name" spellcheck="false" />
+      <button><img src="obrazky/hledat2.png" alt="" /></button>
+    </div>
+    <div class="pocasi">
+      <img src="obrazky/slunko.png" class="pocasi-ikona" />
+      
+      
+      <h1 class="teplota">30℃</h1>
+      <h2 class="město">Prague</h2>
+      <div class="details">
+        <div class="col">
+          <img src="obrazky/humidity.png">
+          <div>
+            <p class="humidity">50%</p>
+          </div>
+        </div>
+
+        <div class="col">
+          <img src="obrazky/wspeed.png" alt="wind speed" title="Wind speed">
+          <div>
+            <p class="wind">15km/h</p>
+          </div>
+        </div>
+        <div class="col">
+          <img src="obrazky/tlak.webp" >
+        <div>
+          <p class="pressure">1023hPa</p>
+        </div>
+      </div>
+      </div>
+    </div>
+    <div class="city-not-found">
+    </div>
+  </div>
+
+  <div class="karta">
+    <ul>
+
+      <button id="myBtn">+</button>
+
+      <!-- The Modal -->
+      <div id="myModal" class="modal">
+      
+        <!-- Modal content -->
+        <div class="modal-content">
+          <span class="close">&times;</span>
+          
+          <div>
+            <form id="add-event-form">
+              <label for="fname">First Name</label>
+              <input type="text" id="fname" name="firstname" placeholder="Your name..">
+          
+              <label for="lname">Last Name</label>
+              <input type="text" id="lname" name="lastname" placeholder="Your last name..">
+          
+              <label for="country">Country</label>
+              <select id="country" name="country">
+                <option value="australia">Australia</option>
+                <option value="canada">Canada</option>
+                <option value="usa">USA</option>
+              </select>
+            
+              <input type="submit" value="Submit">
+            </form>
+          </div>
+
+        </div>
+      
+      </div>
+      
+
+      <li>20.9.2024 - Fotbal</li>
+      <li>20.9.2024 - Hokej</li>
+      <li>20.9.2024 - Tenis</li>
+
+
+
+
+
+
+
+
+    </ul>
+  </div>
+</div>
+</div>
+
+
+
+
+
+<script>
+  const apiKey = "76d331abd50603ef175816330fa83412";
+  const apiUrl = "https://api.openweathermap.org/data/2.5/weather?units=metric&q=";
+  
+  const searchBox = document.querySelector(".hledat input");
+  const searchBtn = document.querySelector(".hledat button");
+  const weatherIcon = document.querySelector(".pocasi-ikona")
+  const notFoundElement = document.querySelector('.city-not-found');
+  const weatherDiv = document.querySelector(".pocasi");
+  
+  function setWeatherIcon(icon, mainWeather) {
+    const path = "obrazky";
+    let imagePath;
+  
+    switch (mainWeather) {
+      case "Clouds":
+        imagePath = `${path}/cloud.webp`;
+        break;
+      case "Clear":
+        imagePath = `${path}/slunko.png`;
+        break;
+      case "Rain":
+        imagePath = `${path}/dest.png`;
+        break;
+      case "Drizzle":
+        imagePath = `${path}/drizzle.png`;
+        break;
+      case "Mist":
+        imagePath = `${path}/mist1.webp`;
+        break;
+      default:
+        // Handle default case if needed
+        break;
+    }
+  
+    icon.src = imagePath;
+  }
+  
+  function handleResponseStatus(success) {
+    if (success) {
+      weatherDiv.style.display = "block";
+      notFoundElement.style.display = "none";
+    } else {
+      weatherDiv.style.display = "none";
+      notFoundElement.style.display = "block";
+    }
+  }
+  
+  async function checkWeather(město) {
+    //const response = await fetch(`${apiUrl}${město}&appId=${apiKey}`) 
+    const response = await fetch(apiUrl + město + `&appid=${apiKey}`);
+  
+    if (!response.ok) {
+      const notFoundTextElement = document.getElementById("not-found-text");
+      if (notFoundTextElement) {
+        notFoundTextElement.innerHTML = `Nelze zjistit pocasi ve meste ${město}. Zkuste to prosim jine mesto.`;
+      } else {
+        const paragraph = document.createElement("p");
+        paragraph.id = "not-found-text";
+        paragraph.innerHTML = `Nelze zjistit pocasi ve meste ${město}. Zkuste to prosim jine mesto.`;
+        notFoundElement.appendChild(paragraph);
+      }
+      handleResponseStatus(response.ok);
+    } else {
+      handleResponseStatus(response.ok);
+  
+      var data = await response.json();
+  
+      document.querySelector(".město").innerHTML = data.name;
+      document.querySelector(".teplota").innerHTML = Math.round(data.main.temp) + "℃";
+      document.querySelector(".humidity").innerHTML = data.main.humidity +  "%";
+      document.querySelector(".wind").innerHTML = data.wind.speed + "km/h";
+      document.querySelector(".pressure").innerHTML = data.main.pressure +  "hPa";
+  
+      setWeatherIcon(weatherIcon, data.weather[0].main);
+    }
+  }
+  
+  searchBtn.addEventListener("click", () => {
+    checkWeather(searchBox.value);
+  })
+  
+
+
+
+  // Get the modal
+var modal = document.getElementById("myModal");
+
+// Get the button that opens the modal
+var btn = document.getElementById("myBtn");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks the button, open the modal 
+btn.onclick = function() {
+  modal.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+  modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
+
+
+
+
+var form = document.getElementById("add-event-form")
+form.addEventListener("submit", function(event) {
+  event.preventDefault();
+
+  console.log(event)
+  const data = new FormData(event.target)
+  console.log([...Object.entries(data.entries())])
+})
+
+
+document.getElementById('form').addEventListener('submit', function (event) {
+    event.preventDefault();
+
+    const form = event.target;
+    const formFields = form.elements;
+
+    const lnameInput = formFields.lname;
+    const countryInput = formFields[1];
+    const fnameInput = formFields.fName;
+
+    console.log(fnameInput.value); // output: 'foo bar'
+    console.log(lnameInput.value); // output: 'foo@bar.com'
+    console.log(countryInput.value); // output: 'foo@bar.com'
+
+}, false);
+
+
+
+
+</script>
+
+
+
+
+  
+
+
+</body>
+
+</html>

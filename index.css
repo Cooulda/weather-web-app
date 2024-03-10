@@ -1,0 +1,285 @@
+* {
+  margin:0 ;
+  padding: 0;
+  font-family: "Poppins", sans-serif;
+  box-sizing: border-box;
+}
+body {
+  background:linear-gradient(90deg,rgb(46, 134, 193),rgb(52, 73, 94)); 
+  color: white;
+}
+
+.navbar a{
+  margin-left: 175px;
+  margin-top: 5px;
+  text-align: left;
+  font-size: 50px;
+  font-family: monospace;
+
+
+}
+.navbar a:hover{
+  border-radius: 10px;
+  outline: solid white;
+  background-color:rgb(46, 134, 193) ;
+}
+
+.header{
+  width: 40%;
+  height: 20vh;
+  background-color: rgb(52, 73, 94);
+  border-radius: 10px;
+  margin-top: 10px;
+  outline: solid rgb(46, 134, 193);
+  outline-width: 5px;
+  margin-left: 10px;
+  
+}
+.header h1{
+  font-size: 50px;
+  margin-left: 20px;
+  border-radius: 100px;
+  font-family: monospace;
+
+  
+}
+
+.karta {
+  min-width: 350px;
+
+  border: 3px solid rgb(46, 134, 193);
+  background: rgb(52, 73, 94);
+  color: #fff;
+  border-radius: 20px;
+  padding: 24px;
+  text-align: center;
+}
+.hledat {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  align-items: center;
+}
+::placeholder {
+  color: white;
+  
+}
+.hledat input {
+  border: 0;
+  outline: 0;
+  background:  rgb(46, 134, 193 );
+  color: white;
+  padding: 14px 25px;
+  border-radius: 30px;
+  align-items: center;
+
+  margin-right: 16px;
+  font-size: 18px;
+}
+
+.hledat button {
+  border: 0;
+  outline: 0;
+  background: rgb(46, 134, 193 );
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  cursor: pointer;
+}
+.hledat button:hover {
+outline: solid white;
+outline-width: 2.5px;
+}
+.hledat button img {
+  width: 16px;
+}
+.pocasi-ikona {
+  width: 140px;
+  margin-top: 30px;
+}
+
+
+.teplota {
+  font-size: 36px;
+  font-weight: 600;
+  margin-top: 8px;
+}
+.město {
+  font-size: 24px;
+  font-weight: 400;
+}
+
+.details {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+
+  margin-top: 30px;
+}
+
+
+.col {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  /* text-align: left; */
+}
+.col img {
+  width: 32px;
+  /* margin-right: 25px; */
+}
+
+/* .col div p {
+  font-size: 14px;
+  text-align: left;
+} */
+
+.humidity,
+.wind,
+.pressure {
+  font-size: 16px;
+  font-weight: 500;
+  text-align: left;
+}
+
+.city-not-found {
+  display: none;
+}
+
+
+/* .zobr img{
+  width: 170px;
+  margin-top: 30px;
+  
+} */
+.humidity:hover{
+  font-size: 40px;
+  border-radius: 10px;
+  background-color:  rgb(46, 134, 193 );
+outline: solid white;
+outline-width: 2.5px;
+  
+}
+.wind:hover{
+  font-size: 40px;
+  border-radius: 10px;
+  background-color:  rgb(46, 134, 193 );
+  outline: solid white;
+outline-width: 2.5px;
+  
+}
+.pressure:hover{
+  font-size: 40px;
+  border-radius: 10px;
+  background-color:  rgb(46, 134, 193 );
+  outline: solid white;
+  outline-width: 2.5px;
+  
+}
+
+.kontejner {
+  display: flex;
+  gap: 32px;
+  justify-content: center;
+}
+
+.page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  height: 100vh;
+}
+
+
+
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+  background-color: rgb(52, 73, 94);
+  margin: auto;
+  width: 300px;
+  padding: 20px;
+  color: black;
+  border-radius: 20px;
+  outline: solid rgb(46, 134, 193 );
+  outline-width: 3px;
+}
+
+/* The Close Button */
+.close {
+  color: white;
+  font-size: 28px;
+  font-weight: bold;
+  float: right;
+ 
+  
+}
+
+.close:hover,
+.close:focus {
+  color: rgb(46, 134, 193 );
+  text-decoration: none;
+  cursor: pointer;
+}
+#myBtn{
+  font-size: 25px;
+  float: right;
+  
+
+  
+}
+.modal-content a{
+  color:white;
+  display: flex;
+  justify-content: left;
+  
+}
+.modal-content a:hover{
+color: rgb(46, 134, 193 );
+}
+input[type=text], select {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+input[type=submit] {
+  width: 100%;
+  background-color: #4CAF50;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+input[type=submit]:hover {
+  background-color: #45a049;
+}
+
+div {
+  border-radius: 5px;
+
+  padding: 20px;
+}
